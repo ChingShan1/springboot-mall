@@ -1,5 +1,6 @@
 package com.chingshan.springbootmail.service;
 
+import com.chingshan.springbootmail.constant.ProductCategory;
 import com.chingshan.springbootmail.dto.ProductRequest;
 import com.chingshan.springbootmail.model.Product;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProducts();
+    List<Product> getProducts(ProductCategory category, String search);
 
     Product getProductById(Integer productId);
 

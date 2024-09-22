@@ -26,8 +26,19 @@ public class ProductDaoImpl implements ProductDao {
     private StringHttpMessageConverter stringHttpMessageConverter;
 
     @Override
+    public List<Product> getProducts() {
+        String sql = "SELECT product_id, product_name, category, image_url, price, stock, description," +
+                "created_date, last_modified_date " +
+                "FROM product";
+        Map<String, Object> map = new HashMap<>();
+        List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
+
+        return productList;
+    }
+
+    @Override
     public Product getProductById(Integer productId) {
-        String sql = "SELECT product_id,product_name ,category, image_url, price, stock, description, created_date, last_modified_date FROM product WHERE product_id = :productId";
+        String sql = "SELECT product_id, product_name ,category, image_url, price, stock, description, created_date, last_modified_date FROM product WHERE product_id = :productId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("productId", productId);
@@ -84,9 +95,14 @@ public class ProductDaoImpl implements ProductDao {
         map.put("lastModifiedDate", new Date());
 
         namedParameterJdbcTemplate.update(sql, map);
+    }
 
+    @Override
+    public void deleteProductById(Integer productId) {
+        String sql = "DELETE FROM product WHERE product_id = :productId";
 
-
-
+        Map<String, Object> map = new HashMap<>();
+        map.put("productId", productId);
+        namedParameterJdbcTemplate.update(sql, map);
     }
 }

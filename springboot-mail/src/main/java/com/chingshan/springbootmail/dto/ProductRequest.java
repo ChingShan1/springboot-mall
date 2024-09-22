@@ -1,25 +1,28 @@
-package com.chingshan.springbootmail.model;
+package com.chingshan.springbootmail.dto;
+
 import com.chingshan.springbootmail.constant.ProductCategory;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
-public class Product {
-    private Integer productId;
+
+public class ProductRequest {
+
+    @NotNull
     private String productName;
+
+    @NotNull
     private ProductCategory category;
-    private String imageUrl;
+
+    @NotNull
+    private String imageURL;
+
+    @NotNull
     private Integer price;
+
+    @NotNull
     private Integer stock;
+
     private String description;
-    private Date createDate;
-    private Date lastModifyDate;
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
 
     public String getProductName() {
         return productName;
@@ -37,12 +40,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public Integer getPrice() {
@@ -67,21 +70,5 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getLastModifyDate() {
-        return lastModifyDate;
-    }
-
-    public void setLastModifyDate(Date lastModifyDate) {
-        this.lastModifyDate = lastModifyDate;
     }
 }

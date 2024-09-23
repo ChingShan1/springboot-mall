@@ -2,6 +2,7 @@ package com.chingshan.springbootmail.rowmapper;
 
 import com.chingshan.springbootmail.constant.ProductCategory;
 import com.chingshan.springbootmail.model.Product;
+import com.chingshan.springbootmail.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -32,4 +33,7 @@ public class ProductRowMapper implements RowMapper<Product>{
         return product;
 
     }
+
+
+
 }

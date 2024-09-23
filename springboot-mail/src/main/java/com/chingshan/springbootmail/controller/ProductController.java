@@ -1,6 +1,7 @@
 package com.chingshan.springbootmail.controller;
 
 import com.chingshan.springbootmail.constant.ProductCategory;
+import com.chingshan.springbootmail.dto.ProductQueryParams;
 import com.chingshan.springbootmail.dto.ProductRequest;
 import com.chingshan.springbootmail.model.Product;
 import com.chingshan.springbootmail.service.ProductService;
@@ -23,7 +24,12 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
     ){
-        List<Product> ProductList = productService.getProducts(category, search);
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+
+        List<Product> ProductList = productService.getProducts(productQueryParams);
+//        List<Product> ProductList = productService.getProducts(category, search);
         return ResponseEntity.status(HttpStatus.OK).body(ProductList);
     }
 

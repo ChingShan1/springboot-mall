@@ -5,6 +5,7 @@ import com.chingshan.springbootmail.dto.ProductQueryParams;
 import com.chingshan.springbootmail.dto.ProductRequest;
 import com.chingshan.springbootmail.model.Product;
 import com.chingshan.springbootmail.service.ProductService;
+import com.chingshan.springbootmail.util.Page;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -24,7 +25,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<Page<Product>> getProducts(
             // 查詢條件 filter
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search,
@@ -47,9 +48,20 @@ public class ProductController {
         productQueryParams.setLimit(limit);
         productQueryParams.setOffset(offset);
 
+        // 取得 product list
         List<Product> ProductList = productService.getProducts(productQueryParams);
 //        List<Product> ProductList = productService.getProducts(category, search);
-        return ResponseEntity.status(HttpStatus.OK).body(ProductList);
+
+        // 取得 product 總數
+        Integer total = productService.getProductCount(productQueryParams);
+
+        // 分頁
+        Page<Product> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(ProductList);
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
 

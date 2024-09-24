@@ -1,12 +1,15 @@
 package com.chingshan.springbootmail.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class UserRegisterRequest {
 
     // @NotBlank = 不等於NUlL和空白值
     @NotBlank
+    @Email
     private String email;
+
     @NotBlank
     private String password;
 

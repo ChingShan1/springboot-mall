@@ -1,5 +1,6 @@
 package com.chingshan.springbootmail.service;
 
+import com.chingshan.springbootmail.dto.UserLoginRequest;
 import com.chingshan.springbootmail.dto.UserRegisterRequest;
 import com.chingshan.springbootmail.model.User;
 
@@ -9,4 +10,5 @@ public interface UserService {
 
     User getUserById(Integer userId);
 
+    User login(UserLoginRequest userLoginRequest);
 }

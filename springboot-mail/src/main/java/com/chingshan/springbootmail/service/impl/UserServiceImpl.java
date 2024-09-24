@@ -1,6 +1,7 @@
 package com.chingshan.springbootmail.service.impl;
 
 import com.chingshan.springbootmail.dao.UserDao;
+import com.chingshan.springbootmail.dto.UserLoginRequest;
 import com.chingshan.springbootmail.dto.UserRegisterRequest;
 import com.chingshan.springbootmail.model.User;
 import com.chingshan.springbootmail.service.UserService;
@@ -37,5 +38,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if (user == null){
+            log.warn("該 email {} 已經沒有被註冊", userLoginRequest.getEmail());
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 在java中 一定要.equals()來比較字串，不能使用 "=="
+        if(user.getPassword().equals(userLoginRequest.getPassword())){
+            return user;
+        } else{
+            log.warn("該 email {} 密碼不正確", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

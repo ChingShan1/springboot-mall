@@ -32,8 +32,14 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
+        // 加鹽 salt
+        String salt = "salt";
+        String orginPassword = userRegisterRequest.getPassword();
+        orginPassword = orginPassword+salt;
         // 使用MD5 生成密碼的hash值
-        String hashedPassword = DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
+        String hashedPassword = DigestUtils.md5DigestAsHex(orginPassword.getBytes());
+
+
         userRegisterRequest.setPassword(hashedPassword);
 
         // 創建帳號
@@ -57,7 +63,10 @@ public class UserServiceImpl implements UserService {
         }
 
         // 使用MD5生成密碼的雜湊值
-        String HashPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
+        String salt = "salt";
+        String orginLoginPassword = userLoginRequest.getPassword();
+        orginLoginPassword = orginLoginPassword+salt;
+        String HashPassword = DigestUtils.md5DigestAsHex(orginLoginPassword.getBytes());
 
 
         // 比較密碼

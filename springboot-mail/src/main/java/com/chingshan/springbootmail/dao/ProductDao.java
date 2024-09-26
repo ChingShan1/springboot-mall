@@ -23,4 +23,6 @@ public interface ProductDao {
 
     Integer getProductCount(ProductQueryParams productQueryParams);
 
+    void updateStock(Integer productId, Integer stock);
+
 }

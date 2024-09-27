@@ -1,5 +1,6 @@
 package com.chingshan.springbootmail.dao;
 
+import com.chingshan.springbootmail.dto.OrderQueryParams;
 import com.chingshan.springbootmail.model.Order;
 import com.chingshan.springbootmail.model.OrderItem;
 
@@ -14,4 +15,8 @@ public interface OrderDao {
     Order getOrderById(Integer orderId);
 
     List<OrderItem> getOrderItemsByOrderId(Integer orderId);
+
+    List<Order> getOrder(OrderQueryParams orderQueryParams);
+
+    Integer countOrder(OrderQueryParams orderQueryParams);
 }

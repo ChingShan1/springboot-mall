@@ -5,6 +5,7 @@ import com.chingshan.springbootmail.dao.ProductDao;
 import com.chingshan.springbootmail.dao.UserDao;
 import com.chingshan.springbootmail.dto.BuyItem;
 import com.chingshan.springbootmail.dto.CreateOrderRequest;
+import com.chingshan.springbootmail.dto.OrderQueryParams;
 import com.chingshan.springbootmail.model.Order;
 import com.chingshan.springbootmail.model.OrderItem;
 import com.chingshan.springbootmail.model.Product;
@@ -98,5 +99,22 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderItemsList(orderItemList);
         return order;
+    }
+
+    @Override
+    public List<Order> getOrder(OrderQueryParams orderQueryParams) {
+
+        List<Order> orderList = orderDao.getOrder(orderQueryParams);
+
+        for(Order order: orderList){
+            List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(order.getOrderId());
+            order.setOrderItemsList(orderItemList);
+        }
+        return orderList;
+    }
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        return orderDao.countOrder(orderQueryParams);
     }
 }

@@ -9,7 +9,7 @@ import com.chingshan.springbootmail.dto.OrderQueryParams;
 import com.chingshan.springbootmail.model.Order;
 import com.chingshan.springbootmail.model.OrderItem;
 import com.chingshan.springbootmail.model.Product;
-import com.chingshan.springbootmail.model.User;
+import com.chingshan.springbootmail.model.MemberUser;
 import com.chingshan.springbootmail.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
 
         // 檢查 User 是否存在
-        User user = userDao.getUserById(userId);
-        if (user == null) {
+        MemberUser memberUser = userDao.getUserById(userId);
+        if (memberUser == null) {
             log.warn("該 userId {} 不存在", userId);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

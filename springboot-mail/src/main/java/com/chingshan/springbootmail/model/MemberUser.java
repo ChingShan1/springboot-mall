@@ -1,11 +1,10 @@
 package com.chingshan.springbootmail.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public class User {
+public class MemberUser {
     private int user_id;
 
 //    @JsonProperty("e_mail")

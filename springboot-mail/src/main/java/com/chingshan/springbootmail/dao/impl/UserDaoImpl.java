@@ -2,7 +2,9 @@ package com.chingshan.springbootmail.dao.impl;
 
 import com.chingshan.springbootmail.dao.UserDao;
 import com.chingshan.springbootmail.dto.UserRegisterRequest;
-import com.chingshan.springbootmail.model.User;
+import com.chingshan.springbootmail.model.Role;
+import com.chingshan.springbootmail.model.MemberUser;
+import com.chingshan.springbootmail.rowmapper.RoleRowMapper;
 import com.chingshan.springbootmail.rowmapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,6 +26,9 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    private RoleRowMapper roleRowMapper;
+
     @Override
     public Integer createUser(UserRegisterRequest userRegisterRequest) {
         String sql = "INSERT INTO user(email, password, created_date, last_modified_date) " +
@@ -41,23 +46,24 @@ public class UserDaoImpl implements UserDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
         int UserId = keyHolder.getKey().intValue();
+
         return UserId;
 
     }
 
     @Override
-    public User getUserById(Integer userId) {
+    public MemberUser getUserById(Integer userId) {
         String sql = "SELECT user_id, email, password, created_date, last_modified_date " +
                 "FROM user WHERE user_id = :userId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
-        if(userList.size() > 0){
-            return userList.get(0);
+        List<MemberUser> memberUserList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
+        if(memberUserList.size() > 0){
+            return memberUserList.get(0);
         } else{
-            return userList.get(1);
+            return memberUserList.get(1);
         }
 
 
@@ -65,19 +71,46 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByEmail(String email) {
+    public MemberUser getUserByEmail(String email) {
         String sql = "SELECT user_id, email, password, created_date, last_modified_date "+
                 "FROM user WHERE email = :email";
 
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
-        if(userList.size() > 0){
-            return userList.get(0);
+        List<MemberUser> memberUserList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
+        if(memberUserList.size() > 0){
+            return memberUserList.get(0);
         }else {
             return null;
         }
+    }
+
+    @Override
+    public List<Role> getRolesByMemberId(Integer memberId) {
+        String sql = """
+                SELECT role.role_id, role.role_name FROM role
+                    JOIN member_has_role ON role.role_id = member_has_role.role_id
+                    WHERE member_has_role.member_id = :memberId
+                """;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+
+        List<Role> roleList = namedParameterJdbcTemplate.query(sql, map, roleRowMapper);
+
+        return roleList;
+    }
+
+    @Override
+    public void addRoleForMemberId(Integer memberId, Role role) {
+        String sql = "INSERT INTO member_has_role(member_id, role_id) VALUES (:memberId, :roleId)";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+        map.put("roleId", role.getRoleId());
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 
     public org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {

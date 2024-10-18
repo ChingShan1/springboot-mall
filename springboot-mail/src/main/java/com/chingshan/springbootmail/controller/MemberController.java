@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,5 +57,14 @@ public class MemberController {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         return "登入成功！帳號 " + username + " 的權限為: " + authorities;
+    }
+
+    @GetMapping("/")
+    public String index(Authentication authentication) {
+
+        // 取得使用者的帳號（若使用 OAuth2 登入，會使用 providerId 的值當作帳號）
+        String username = authentication.getName();
+
+        return "Hello " + username;
     }
 }

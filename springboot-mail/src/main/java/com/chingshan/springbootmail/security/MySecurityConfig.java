@@ -1,6 +1,7 @@
 package com.chingshan.springbootmail.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,6 +22,13 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class MySecurityConfig {
+
+    @Autowired
+    private MyOAuth2UserService myOAuth2UserService;
+
+    @Autowired
+    private MyOidcUserService myOidcUserService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -29,6 +37,8 @@ public class MySecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
 
         return http
                 // 設定 Session 的創建機制
@@ -48,13 +58,31 @@ public class MySecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
 
+                // oauth社交登入
+                // OAuth 2.0 社交登入
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(infoEndpoint -> infoEndpoint
+                                .userService(myOAuth2UserService)
+                                .oidcUserService(myOidcUserService)
+                        )
+                )
+//                .oauth2Login(Customizer.withDefaults())
+
                 // 設定 api 的權限控制
                 .authorizeHttpRequests(request -> request
                         // 註冊帳號功能
                         .requestMatchers("/register").permitAll()
+                       .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/google-users/**").permitAll()
 
                         // 登入功能
                         .requestMatchers("/userLogin").authenticated()
+                        .requestMatchers("/").authenticated()
+
+
+
+                        // 權限設定
+                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
 
 
                         .anyRequest().denyAll()

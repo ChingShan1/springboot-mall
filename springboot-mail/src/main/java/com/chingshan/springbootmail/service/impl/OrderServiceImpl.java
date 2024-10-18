@@ -1,15 +1,13 @@
 package com.chingshan.springbootmail.service.impl;
 
+import com.chingshan.springbootmail.dao.OAuth2MemberDao;
 import com.chingshan.springbootmail.dao.OrderDao;
 import com.chingshan.springbootmail.dao.ProductDao;
 import com.chingshan.springbootmail.dao.UserDao;
 import com.chingshan.springbootmail.dto.BuyItem;
 import com.chingshan.springbootmail.dto.CreateOrderRequest;
 import com.chingshan.springbootmail.dto.OrderQueryParams;
-import com.chingshan.springbootmail.model.Order;
-import com.chingshan.springbootmail.model.OrderItem;
-import com.chingshan.springbootmail.model.Product;
-import com.chingshan.springbootmail.model.MemberUser;
+import com.chingshan.springbootmail.model.*;
 import com.chingshan.springbootmail.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private OAuth2MemberDao oAuth2MemberDao;
+
     private final static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
@@ -43,8 +44,14 @@ public class OrderServiceImpl implements OrderService {
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
 
         // 檢查 User 是否存在
-        MemberUser memberUser = userDao.getUserById(userId);
-        if (memberUser == null) {
+//        MemberUser memberUser = userDao.getUserById(userId);
+        OAuth2Member oAuth2Member = oAuth2MemberDao.getOAuth2MemberId(userId);
+
+//        if (memberUser == null && oAuth2Member == null) {
+//            log.warn("該 userId {} 不存在", userId);
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+        if (oAuth2Member == null) {
             log.warn("該 userId {} 不存在", userId);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

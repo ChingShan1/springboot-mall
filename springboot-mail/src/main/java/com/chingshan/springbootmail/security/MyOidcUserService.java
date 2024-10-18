@@ -1,7 +1,9 @@
 package com.chingshan.springbootmail.security;
 
 import com.chingshan.springbootmail.dao.OAuth2MemberDao;
+import com.chingshan.springbootmail.dao.RoleDao;
 import com.chingshan.springbootmail.model.OAuth2Member;
+import com.chingshan.springbootmail.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -17,6 +19,9 @@ import java.util.Objects;
 public class MyOidcUserService extends OidcUserService {
     @Autowired
     private OAuth2MemberDao oAuth2MemberDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public OidcUser loadUser(OidcUserRequest oidcUserRequest) throws OAuth2AuthenticationException {
@@ -45,8 +50,13 @@ public class MyOidcUserService extends OidcUserService {
             newOAuth2Member.setEmail(email);
             newOAuth2Member.setAccessToken(accessToken);
             newOAuth2Member.setExpiresAt(expiresAt);
-
             oAuth2MemberDao.createOAuth2Member(newOAuth2Member);
+
+            // 在資料庫中插入 oauth2_Member 數據
+            OAuth2Member newAdd_oAuth2Member = oAuth2MemberDao.getOAuth2MemberId_int(newOAuth2Member);
+            // 為 Member 添加預設的 Role
+            Role normalRole = roleDao.getRoleByName("ROLE_NORMAL_MEMBER");
+            oAuth2MemberDao.oauth2_addRoleForMemberId(newAdd_oAuth2Member.getOauth2memberId(), normalRole);
         }
 
         // 返回 Spring Security 原本的 oidcUser

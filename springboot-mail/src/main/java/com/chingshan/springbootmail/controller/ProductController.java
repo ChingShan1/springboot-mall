@@ -12,11 +12,14 @@ import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@EnableMethodSecurity
 @Validated
 @RestController
 public class ProductController {
@@ -75,6 +78,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
         Integer productId = productService.createProduct(productRequest);
@@ -82,6 +86,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/products/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable @Valid Integer productId,
                                                  @RequestBody @Valid ProductRequest productRequest){
@@ -97,10 +102,13 @@ public class ProductController {
       return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProcduct(@PathVariable @Valid Integer productId){
         productService.deleteProductById(productId);
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
     }
 
 }

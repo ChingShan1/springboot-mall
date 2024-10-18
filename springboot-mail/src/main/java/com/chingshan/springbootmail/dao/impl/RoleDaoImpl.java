@@ -35,4 +35,6 @@ public class RoleDaoImpl implements RoleDao {
             return roleList.get(0);
         }
     }
+
+
 }

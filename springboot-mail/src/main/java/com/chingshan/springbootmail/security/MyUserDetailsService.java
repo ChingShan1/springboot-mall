@@ -2,7 +2,9 @@ package com.chingshan.springbootmail.security;
 
 import com.chingshan.springbootmail.dao.MemberDao;
 
+import com.chingshan.springbootmail.dao.OAuth2MemberDao;
 import com.chingshan.springbootmail.model.Member;
+import com.chingshan.springbootmail.model.OAuth2Member;
 import com.chingshan.springbootmail.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,11 +24,15 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private MemberDao memberDao;
 
+//    @Autowired
+//    private OAuth2MemberDao oAuth2MemberDao;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // 從資料庫中查詢 Member 數據
         Member member = memberDao.getMemberByEmail(username);
+//        OAuth2Member oAuth2Member = oAuth2MemberDao.g
 
         if (member == null) {
             throw new UsernameNotFoundException("Member not found for: " + username);

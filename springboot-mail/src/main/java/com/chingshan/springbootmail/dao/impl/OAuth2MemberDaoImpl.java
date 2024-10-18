@@ -2,6 +2,7 @@ package com.chingshan.springbootmail.dao.impl;
 
 import com.chingshan.springbootmail.dao.OAuth2MemberDao;
 import com.chingshan.springbootmail.model.OAuth2Member;
+import com.chingshan.springbootmail.model.Role;
 import com.chingshan.springbootmail.rowmapper.OAuth2MemberRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -64,6 +65,28 @@ public class OAuth2MemberDaoImpl implements OAuth2MemberDao {
     }
 
     @Override
+    public OAuth2Member getOAuth2MemberId_int(OAuth2Member OAuth2Member) {
+        String sql = """
+                SELECT oauth2_member_id, provider, provider_id, name, email, access_token, expires_at
+                FROM oauth2_member
+                WHERE provider = :provider AND provider_id = :providerId
+                """;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("provider", OAuth2Member.getProvider());
+        map.put("providerId", OAuth2Member.getProviderId());
+
+        List<OAuth2Member> oAuth2MemberList = namedParameterJdbcTemplate.query(sql, map, oAuth2MemberRowMapper);
+
+        if (oAuth2MemberList.size() > 0) {
+            return oAuth2MemberList.get(0);
+        } else {
+            return null;
+        }
+
+    }
+
+    @Override
     public Integer createOAuth2Member(OAuth2Member oAuth2Member) {
         String sql = """
                 INSERT INTO oauth2_member(provider, provider_id, name, email, access_token, expires_at)
@@ -85,5 +108,18 @@ public class OAuth2MemberDaoImpl implements OAuth2MemberDao {
         int oauth2MemberId = keyHolder.getKey().intValue();
 
         return oauth2MemberId;
+    }
+
+
+
+    @Override
+    public void oauth2_addRoleForMemberId(Integer oauth2_member_id, Role role) {
+        String sql = "INSERT INTO oauth2_user_has_role(member_id, role_id) VALUES (:memberId, :roleId)";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", oauth2_member_id);
+        map.put("roleId", role.getRoleId());
+
+        namedParameterJdbcTemplate.update(sql, map);
     }
 }

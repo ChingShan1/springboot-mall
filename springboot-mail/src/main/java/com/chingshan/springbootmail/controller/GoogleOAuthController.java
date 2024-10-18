@@ -40,7 +40,7 @@ public class GoogleOAuthController {
                 .queryParam("response_type", "code")
                 .queryParam("client_id", GOOGLE_CLIENT_ID)
                 .queryParam("scope", "profile+email+openid")
-                .queryParam("redirect_uri", "http://localhost:3000/oauth2-google-demo.html")
+                .queryParam("redirect_uri", "http://localhost:8080/login/oauth2/code/google")
                 .queryParam("state", generateRandomState())
                 .queryParam("access_type", "offline");
 

@@ -60,6 +60,7 @@ public class MySecurityConfig {
 
                 // oauth社交登入
                 // OAuth 2.0 社交登入
+
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(infoEndpoint -> infoEndpoint
                                 .userService(myOAuth2UserService)
@@ -72,17 +73,21 @@ public class MySecurityConfig {
                 .authorizeHttpRequests(request -> request
                         // 註冊帳號功能
                         .requestMatchers("/register").permitAll()
-                       .requestMatchers("/users/**").permitAll()
-                        .requestMatchers("/oauth2_users/**").permitAll()
+                        .requestMatchers("/google/**").permitAll()
+
 
                         // 登入功能
+//                        .requestMatchers("/register").authenticated()
                         .requestMatchers("/userLogin").authenticated()
                         .requestMatchers("/").authenticated()
+                        .requestMatchers("/oauth2_users/**").authenticated()
+                        .requestMatchers("/users/**").authenticated()
+                        .requestMatchers("/products/**").authenticated()
 
 
 
                         // 權限設定
-                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
+//                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
 
 
                         .anyRequest().denyAll()

@@ -22,6 +22,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+
     @PostMapping("/users/{userId}/orders")
     public ResponseEntity<?> createOrder(@PathVariable Integer userId,
                                               @RequestBody @Valid CreateOrderRequest createOrderRequest){
@@ -32,6 +33,19 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
+    @PostMapping("/google-users/{oauth2_id}/orders")
+    public ResponseEntity<?> google_createOrder(@PathVariable Integer oauth2_id,
+                                         @RequestBody @Valid CreateOrderRequest createOrderRequest){
+
+        Integer orderId = orderService.createOrder(oauth2_id, createOrderRequest);
+
+        Order order = orderService.getOrderBuId(orderId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
+
+
+    }
+
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<Order>> getOrders(

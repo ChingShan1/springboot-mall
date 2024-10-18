@@ -1,9 +1,6 @@
 package com.chingshan.springbootmail.service.impl;
 
-import com.chingshan.springbootmail.dao.OAuth2MemberDao;
-import com.chingshan.springbootmail.dao.OrderDao;
-import com.chingshan.springbootmail.dao.ProductDao;
-import com.chingshan.springbootmail.dao.UserDao;
+import com.chingshan.springbootmail.dao.*;
 import com.chingshan.springbootmail.dto.BuyItem;
 import com.chingshan.springbootmail.dto.CreateOrderRequest;
 import com.chingshan.springbootmail.dto.OrderQueryParams;
@@ -34,6 +31,9 @@ public class OrderServiceImpl implements OrderService {
     private UserDao userDao;
 
     @Autowired
+    private MemberDao memberDao;
+
+    @Autowired
     private OAuth2MemberDao oAuth2MemberDao;
 
     private final static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -44,10 +44,11 @@ public class OrderServiceImpl implements OrderService {
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
 
         // 檢查 User 是否存在
-        MemberUser memberUser = userDao.getUserById(userId);
+//        MemberUser memberUser = userDao.getUserById(userId);
+        Member member = memberDao.getMemberId(userId);
 
 
-        if (memberUser == null) {
+        if (member == null) {
             log.warn("該 userId {} 不存在", userId);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -169,6 +170,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrder(OrderQueryParams orderQueryParams) {
 
+
+        // 檢查 User 是否存在
+        Member member = memberDao.getMemberId(orderQueryParams.getUserId());
+
+        if (member == null) {
+            log.warn("該 userId {} 不存在", orderQueryParams.getUserId());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         List<Order> orderList = orderDao.getOrder(orderQueryParams);
 
         for(Order order: orderList){
@@ -180,6 +189,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> oauth2_getOrder(OrderQueryParams orderQueryParams) {
+
+        // 檢查 User 是否存在
+        OAuth2Member oAuth2Member = oAuth2MemberDao.getOAuth2MemberId(orderQueryParams.getUserId());
+
+        if (oAuth2Member == null) {
+            log.warn("該 userId {} 不存在", orderQueryParams.getUserId());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+
         List<Order> orderList = orderDao.oauth2_getOrder(orderQueryParams);
 
         for(Order order: orderList){

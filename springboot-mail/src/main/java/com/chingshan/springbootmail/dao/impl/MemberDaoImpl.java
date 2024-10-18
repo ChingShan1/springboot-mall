@@ -45,6 +45,24 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
+    public Member getMemberId(int id) {
+        String sql = """
+        SELECT member_id, email, password, name, age FROM member WHERE member_id = :memberId
+        """;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", id);
+
+        List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, memberRowMapper);
+
+        if (memberList.size() > 0) {
+            return memberList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public Integer createMember(Member member) {
         String sql = "INSERT INTO member(email, password, name, age) VALUES (:email, :password, :name, :age)";
 

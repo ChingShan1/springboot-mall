@@ -10,6 +10,8 @@ public interface MemberDao {
     // 基本 Member 操作
     Member getMemberByEmail(String email);
 
+    Member getMemberId(int id);
+
     Integer createMember(Member member);
 
     // 權限相關

@@ -33,13 +33,13 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
-    @PostMapping("/google-users/{oauth2_id}/orders")
+    @PostMapping("/oauth2_users/{oauth2_id}/orders")
     public ResponseEntity<?> google_createOrder(@PathVariable Integer oauth2_id,
                                          @RequestBody @Valid CreateOrderRequest createOrderRequest){
 
-        Integer orderId = orderService.createOrder(oauth2_id, createOrderRequest);
+        Integer orderId = orderService.oauth2_createOrder(oauth2_id, createOrderRequest);
 
-        Order order = orderService.getOrderBuId(orderId);
+        Order order = orderService.oauth2_getOrderBuId(orderId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
 
@@ -69,10 +69,31 @@ public class OrderController {
         page.setResults(orderList);
 
         return ResponseEntity.status(HttpStatus.OK).body(page);
-
-
     }
 
+    @GetMapping("/oauth2_users/{userId}/orders")
+    public ResponseEntity<Page<Order>> oauth2_getOrders(
+            @PathVariable Integer userId,
+            @RequestParam(defaultValue = "10") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0)Integer offset
+    ){
+        OrderQueryParams orderQueryParams = new OrderQueryParams();
+        orderQueryParams.setUserId(userId);
+        orderQueryParams.setLimit(limit);
+        orderQueryParams.setOffset(offset);
+
+        List<Order> orderList = orderService.oauth2_getOrder(orderQueryParams);
+
+        Integer count = orderService.oauth2_countOrder(orderQueryParams);
+
+        Page<Order> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(count);
+        page.setResults(orderList);
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+    }
 
 
 }

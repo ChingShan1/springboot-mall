@@ -73,7 +73,7 @@ public class MySecurityConfig {
                         // 註冊帳號功能
                         .requestMatchers("/register").permitAll()
                        .requestMatchers("/users/**").permitAll()
-                        .requestMatchers("/google-users/**").permitAll()
+                        .requestMatchers("/oauth2_users/**").permitAll()
 
                         // 登入功能
                         .requestMatchers("/userLogin").authenticated()

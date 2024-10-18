@@ -44,14 +44,10 @@ public class OrderServiceImpl implements OrderService {
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
 
         // 檢查 User 是否存在
-//        MemberUser memberUser = userDao.getUserById(userId);
-        OAuth2Member oAuth2Member = oAuth2MemberDao.getOAuth2MemberId(userId);
+        MemberUser memberUser = userDao.getUserById(userId);
 
-//        if (memberUser == null && oAuth2Member == null) {
-//            log.warn("該 userId {} 不存在", userId);
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
-        if (oAuth2Member == null) {
+
+        if (memberUser == null) {
             log.warn("該 userId {} 不存在", userId);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -100,9 +96,71 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Integer oauth2_createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
+        // 檢查 User 是否存在
+        OAuth2Member oAuth2Member = oAuth2MemberDao.getOAuth2MemberId(userId);
+
+        if (oAuth2Member == null) {
+            log.warn("該 userId {} 不存在", userId);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        int totalAmount = 0;
+        List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+
+        for(BuyItem buyItem: createOrderRequest.getBuyitemList()){
+            Product product = productDao.getProductById(buyItem.getProductId());
+
+            // 檢查 Product 是否存在，庫存是否足夠
+            if(product == null){
+                log.warn("商品 {} 不存在", buyItem.getProductId());
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+            }else if(product.getStock() < buyItem.getQuantity()){
+                log.warn("商品 {} 庫存數量不夠，無法購買， 剩餘庫存 {}, 欲購買數量 {}"
+                        , buyItem.getProductId(), product.getStock(), buyItem.getQuantity());
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+            // 扣除商品庫存
+            productDao.updateStock(product.getProductId(), product.getStock() -  buyItem.getQuantity());
+
+
+
+            // 計算總價錢
+            int amount = buyItem.getQuantity() * product.getPrice();
+            totalAmount =totalAmount + amount;
+
+            // 轉換BuyItem to OrderItem
+            OrderItem orderitem = new OrderItem();
+            orderitem.setProductId(buyItem.getProductId());
+            orderitem.setQuantity(buyItem.getQuantity());
+            orderitem.setAmount(amount);
+
+            orderItemList.add(orderitem);
+        }
+
+
+        // 創建訂單
+        Integer orderId = orderDao.oauth2_createOrder(userId, totalAmount);
+
+        orderDao.oauth2_CreateOrderItem(orderId, orderItemList);
+
+        return orderId;
+    }
+
+    @Override
     public Order getOrderBuId(Integer orderId) {
         Order order = orderDao.getOrderById(orderId);
         List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
+
+        order.setOrderItemsList(orderItemList);
+        return order;
+    }
+
+    @Override
+    public Order oauth2_getOrderBuId(Integer orderId) {
+        Order order = orderDao.oauth2_getOrderById(orderId);
+        List<OrderItem> orderItemList = orderDao.oauth2_getOrderItemsByOrderId(orderId);
 
         order.setOrderItemsList(orderItemList);
         return order;
@@ -121,7 +179,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> oauth2_getOrder(OrderQueryParams orderQueryParams) {
+        List<Order> orderList = orderDao.oauth2_getOrder(orderQueryParams);
+
+        for(Order order: orderList){
+            List<OrderItem> orderItemList = orderDao.oauth2_getOrderItemsByOrderId(order.getOrderId());
+            order.setOrderItemsList(orderItemList);
+        }
+        return orderList;
+    }
+
+    @Override
     public Integer countOrder(OrderQueryParams orderQueryParams) {
         return orderDao.countOrder(orderQueryParams);
+    }
+
+    @Override
+    public Integer oauth2_countOrder(OrderQueryParams orderQueryParams) {
+        return orderDao.oauth2_countOrder(orderQueryParams);
     }
 }

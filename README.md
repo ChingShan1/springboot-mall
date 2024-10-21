@@ -16,7 +16,7 @@
 * 功能介紹: 讓管理者可以建立商品的相關資訊
 * Input: 商品資料
 * Ouput: 建立好的商品資料
-![createproduct](https://hackmd.io/_uploads/BkwNoVQx1l.jpg)
+![createproduct](https://github.com/user-attachments/assets/72db5392-7774-4b89-baa0-1d77c3560656)
 #### 2. 刪掉商品
 * DELETE: http://localhost:8080/products/{productId}
 * 功能介紹: 讓管理者可以刪掉商品的相關資訊

@@ -33,15 +33,55 @@
 ##### a. 獲取商品資料_個人
 * GET: http://localhost:8080/products/{productId}
 * 功能介紹: 讓使用者可以查詢商品的相關資訊
-* Input: 商品資料的編號
+* Input: 無
 * Ouput: 查詢的商品資料
 ![getprpdcut](https://hackmd.io/_uploads/SyfeyHmxkg.jpg)
 ##### b. 獲取商品資料_全部
 * GET: http://localhost:8080/products
 * 功能介紹: 讓使用者可以查詢所以商品的相關資訊
-* Input: 商品資料
+* Input: 無
 * Ouput: 查詢的所以商品資料
 ![getallproduct](https://hackmd.io/_uploads/rJtCkSXeke.jpg)
+### 訂單相關功能
+#### 1. 建立訂單
+* POST: 
+a. 普通使用者: http://localhost:8080/users/{userId}/orders
+b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
+* 功能介紹: 讓使用者可以建立購買商品的訂單相關資訊
+* Input: 商品資料
+* Ouput: 購買商品的訂單資料
+![createorder_oauth2](https://hackmd.io/_uploads/HJiemHQeyx.jpg)
+#### 2. 建立訂單
+* Get: 
+a. 普通使用者: http://localhost:8080/users/{userId}/orders
+b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
+* 功能介紹: 讓使用者可以查詢自己商品的訂單相關資訊
+* Input: 無
+* Ouput: 建立好的商品資料
+![getorder](https://hackmd.io/_uploads/B1xoQrQgJl.jpg)
+## 使用技術介紹_java-secuity
+### 使用者註冊和登入
+#### 1. 使用者註冊和登入_oAuth2
+* 功能介紹: 讓使用者可以透過google帳號註冊
+* 執行步驟:
+a. 點選Goole登入按鈕 ![oauth2-login](https://hackmd.io/_uploads/SJthLHXl1g.jpg)
+b. 選擇使用帳號![oauth2-login-1](https://hackmd.io/_uploads/SyGJtr7xyx.jpg)
+c. 登入成功畫面![oauth2-login-2](https://hackmd.io/_uploads/SkXltSQekx.jpg)
+#### 2. 使用者註冊_普通使用者
+* POST: http://localhost:8080/users/register
+* 功能介紹: 讓使用者可以註冊帳號
+* Input: 帳號資料
+* Ouput: 註冊成功畫面
+![register](https://hackmd.io/_uploads/SkFE5BXgJl.jpg)
+#### 3. 使用者登入_普通使用者
+* POST: http://localhost:8080/userLogin
+* 功能介紹: 讓使用者可以登入帳號
+* Input: 帳號資料
+* Ouput: 登入成功畫面和獲得的權限
+![login](https://hackmd.io/_uploads/rygt9HQx1l.jpg)
+
+
+
 
 
 

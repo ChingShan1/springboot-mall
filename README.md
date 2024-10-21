@@ -22,7 +22,7 @@
 * 功能介紹: 讓管理者可以刪掉商品的相關資訊
 * Input: 商品資料的編號
 * Ouput: 回傳204刪除成功訊息
-![deleteprduct](https://hackmd.io/_uploads/Sk4HnEQl1g.jpg)
+![deleteprduct](https://github.com/user-attachments/assets/c1677301-494e-4c26-9210-ff117f25c209)
 #### 3. 更新商品
 * PUT: http://localhost:8080/products/{productId}
 * 功能介紹: 讓管理者可以更新商品的相關資訊

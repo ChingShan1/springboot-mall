@@ -6,7 +6,7 @@
 4. 管理使用者的權限。
 ## 專案技術
 1. 使用java-springBoot的架構來時做後端WEB應用程式
-2. 使用java-secuity的架構來做認證和授權，來作資訊安全的保護
+2. 使用java-security的架構來做認證和授權，來作資訊安全的保護
 3. 使用Oauth2的技術，讓第三方應用程式使用者登入, ex: 使用Google帳號登入
 
 ## 使用技術介紹_java-springboot

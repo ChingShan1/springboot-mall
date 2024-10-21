@@ -28,7 +28,7 @@
 * 功能介紹: 讓管理者可以更新商品的相關資訊
 * Input: 商品資料的編號
 * Ouput: 更改好的商品資料
-![updateprodcut](https://hackmd.io/_uploads/H1ek0EQlyx.jpg)
+![updateprodcut](https://github.com/user-attachments/assets/68b0e3dd-0bb7-48a9-9844-937a0145b0bd)
 #### 4. 獲取商品資料
 ##### a. 獲取商品資料_個人
 * GET: http://localhost:8080/products/{productId}
@@ -41,7 +41,7 @@
 * 功能介紹: 讓使用者可以查詢所以商品的相關資訊
 * Input: 無
 * Ouput: 查詢的所以商品資料
-![getallproduct](https://hackmd.io/_uploads/rJtCkSXeke.jpg)
+![getallproduct](https://github.com/user-attachments/assets/60283cf1-3047-4165-9950-ab2a8f87a37f)
 ### 訂單相關功能
 #### 1. 建立訂單
 * POST: 
@@ -50,7 +50,7 @@ b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * 功能介紹: 讓使用者可以建立購買商品的訂單相關資訊
 * Input: 商品資料
 * Ouput: 購買商品的訂單資料
-![createorder_oauth2](https://hackmd.io/_uploads/HJiemHQeyx.jpg)
+![createorder_oauth2](https://github.com/user-attachments/assets/1e4e2907-b91c-4238-8514-c570b980e0a6)
 #### 2. 建立訂單
 * Get: 
 a. 普通使用者: http://localhost:8080/users/{userId}/orders
@@ -58,13 +58,14 @@ b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * 功能介紹: 讓使用者可以查詢自己商品的訂單相關資訊
 * Input: 無
 * Ouput: 建立好的商品資料
-![getorder](https://hackmd.io/_uploads/B1xoQrQgJl.jpg)
+![getorder](https://github.com/user-attachments/assets/3acf81c1-b266-4179-8761-41e421a4fb7b)
 ## 使用技術介紹_java-secuity
 ### 使用者註冊和登入
 #### 1. 使用者註冊和登入_oAuth2
 * 功能介紹: 讓使用者可以透過google帳號註冊
 * 執行步驟:
-a. 點選Goole登入按鈕 ![oauth2-login](https://hackmd.io/_uploads/SJthLHXl1g.jpg)
+a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c)
+
 b. 選擇使用帳號![oauth2-login-1](https://hackmd.io/_uploads/SyGJtr7xyx.jpg)
 c. 登入成功畫面![oauth2-login-2](https://hackmd.io/_uploads/SkXltSQekx.jpg)
 #### 2. 使用者註冊_普通使用者

@@ -33,7 +33,7 @@
 ##### a. 獲取商品資料_個人
 * GET: http://localhost:8080/products/{productId}
 * 功能介紹: 讓使用者可以查詢商品的相關資訊
-* Input: 無
+* Input: 商品資料的編號
 * Ouput: 查詢的商品資料
 ![getprpdcut](https://github.com/user-attachments/assets/44d2edee-0a0f-43b0-b900-ce1cfd825117)
 ##### b. 獲取商品資料_全部

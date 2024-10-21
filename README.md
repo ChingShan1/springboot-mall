@@ -35,7 +35,7 @@
 * 功能介紹: 讓使用者可以查詢商品的相關資訊
 * Input: 無
 * Ouput: 查詢的商品資料
-![getprpdcut](https://hackmd.io/_uploads/SyfeyHmxkg.jpg)
+![getprpdcut](https://github.com/user-attachments/assets/44d2edee-0a0f-43b0-b900-ce1cfd825117)
 ##### b. 獲取商品資料_全部
 * GET: http://localhost:8080/products
 * 功能介紹: 讓使用者可以查詢所以商品的相關資訊
@@ -44,16 +44,16 @@
 ![getallproduct](https://github.com/user-attachments/assets/60283cf1-3047-4165-9950-ab2a8f87a37f)
 ### 訂單相關功能
 #### 1. 建立訂單
-* POST: 
-a. 普通使用者: http://localhost:8080/users/{userId}/orders
+* POST: <br/>
+a. 普通使用者: http://localhost:8080/users/{userId}/orders <br/>
 b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * 功能介紹: 讓使用者可以建立購買商品的訂單相關資訊
 * Input: 商品資料
 * Ouput: 購買商品的訂單資料
 ![createorder_oauth2](https://github.com/user-attachments/assets/1e4e2907-b91c-4238-8514-c570b980e0a6)
 #### 2. 建立訂單
-* Get: 
-a. 普通使用者: http://localhost:8080/users/{userId}/orders
+* Get: <br/>
+a. 普通使用者: http://localhost:8080/users/{userId}/orders <br/>
 b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * 功能介紹: 讓使用者可以查詢自己商品的訂單相關資訊
 * Input: 無
@@ -64,22 +64,23 @@ b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 #### 1. 使用者註冊和登入_oAuth2
 * 功能介紹: 讓使用者可以透過google帳號註冊
 * 執行步驟:
-a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c)
+a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c) <br/>
+b. 選擇使用帳號 ![oauth2-login-1](https://github.com/user-attachments/assets/8b8a10a2-2e40-4043-9a8e-017c6803e01d)
+c. 登入成功畫面 ![oauth2-login-2](https://github.com/user-attachments/assets/fb99f99a-11e6-47ad-a43e-86ea73479a89)
 
-b. 選擇使用帳號![oauth2-login-1](https://hackmd.io/_uploads/SyGJtr7xyx.jpg)
-c. 登入成功畫面![oauth2-login-2](https://hackmd.io/_uploads/SkXltSQekx.jpg)
 #### 2. 使用者註冊_普通使用者
 * POST: http://localhost:8080/users/register
 * 功能介紹: 讓使用者可以註冊帳號
 * Input: 帳號資料
 * Ouput: 註冊成功畫面
-![register](https://hackmd.io/_uploads/SkFE5BXgJl.jpg)
+![register](https://github.com/user-attachments/assets/ec87fb1c-9c6e-4cd7-baff-ca42bc321d9b)
+
 #### 3. 使用者登入_普通使用者
 * POST: http://localhost:8080/userLogin
 * 功能介紹: 讓使用者可以登入帳號
 * Input: 帳號資料
 * Ouput: 登入成功畫面和獲得的權限
-![login](https://hackmd.io/_uploads/rygt9HQx1l.jpg)
+![login](https://github.com/user-attachments/assets/acc031a9-b3df-4017-890f-d0c03c369f07)
 
 
 

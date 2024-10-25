@@ -51,7 +51,7 @@ b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * Input: 商品資料
 * Ouput: 購買商品的訂單資料
 ![createorder_oauth2](https://github.com/user-attachments/assets/1e4e2907-b91c-4238-8514-c570b980e0a6)
-#### 2. 建立訂單
+#### 2. 查詢訂單
 * Get: <br/>
 a. 普通使用者: http://localhost:8080/users/{userId}/orders <br/>
 b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders

@@ -33,8 +33,9 @@ c. 登入成功畫面 ![oauth2-login-role](https://github.com/user-attachments/a
 * 功能介紹: 讓使用者可以登入帳號
 * Input: 帳號資料
 * Ouput: 登入成功畫面和獲得的權限
-a. 登入帳號 ![login_normaluser_2](https://github.com/user-attachments/assets/f205d441-e9c2-4e6b-b05f-0fc3c18e219f) <br/>
-b. 登入成功畫面 ![login_normaluser_2](https://github.com/user-attachments/assets/dcfaf5ed-0230-4137-9731-1c3ddfde643f)
+a. 登入帳號 ![login_normaluser_2](https://github.com/user-attachments/assets/dc6957a0-981d-4084-8aac-7be8bddf363d) <br/>
+b. 登入成功畫面 ![login_normaluser_1](https://github.com/user-attachments/assets/190467c6-15be-48ab-8d34-89e96a3620ec)
+
 
 
 

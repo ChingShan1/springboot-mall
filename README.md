@@ -12,7 +12,7 @@
 ![基本架構圖](https://github.com/user-attachments/assets/7d26d65e-b3bd-4df0-903c-b86de9d61f20)
 
 ## 使用技術介紹_java-secuity
-(暫時使用localhost方便來做demo，如果要使用https可以在後台再做修改)
+(暫時使用localhost方便來做demo，如果要使用https加密傳輸可以在後台再做修改)
 ### 使用者註冊和登入
 #### 1. 使用者註冊和登入_oAuth2
 * 功能介紹: 讓使用者可以透過google帳號註冊，並賦予"normal-user"權限

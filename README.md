@@ -8,6 +8,33 @@
 1. 使用java-springBoot的架構來時做後端WEB應用程式
 2. 使用java-security的架構來做認證和授權，來作資訊安全的保護
 3. 使用Oauth2的技術，讓第三方應用程式使用者登入, ex: 使用Google帳號登入
+## 基本架構圖
+![基本架構圖](https://github.com/user-attachments/assets/7d26d65e-b3bd-4df0-903c-b86de9d61f20)
+
+## 使用技術介紹_java-secuity
+### 使用者註冊和登入
+#### 1. 使用者註冊和登入_oAuth2
+* 功能介紹: 讓使用者可以透過google帳號註冊
+* 執行步驟:
+a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c) <br/>
+b. 選擇使用帳號 ![oauth2-login-1](https://github.com/user-attachments/assets/8b8a10a2-2e40-4043-9a8e-017c6803e01d)
+c. 登入成功畫面 ![oauth2-login-2](https://github.com/user-attachments/assets/fb99f99a-11e6-47ad-a43e-86ea73479a89)
+
+#### 2. 使用者註冊_普通使用者
+* POST: http://localhost:8080/users/register
+* 功能介紹: 讓使用者可以註冊帳號
+* Input: 帳號資料
+* Ouput: 註冊成功畫面
+![register](https://github.com/user-attachments/assets/ec87fb1c-9c6e-4cd7-baff-ca42bc321d9b)
+
+#### 3. 使用者登入_普通使用者
+* POST: http://localhost:8080/userLogin
+* 功能介紹: 讓使用者可以登入帳號
+* Input: 帳號資料
+* Ouput: 登入成功畫面和獲得的權限
+![login](https://github.com/user-attachments/assets/acc031a9-b3df-4017-890f-d0c03c369f07)
+
+
 
 ## 使用技術介紹_java-springboot
 ### 商品相關功能
@@ -59,28 +86,6 @@ b. oauth2使用者: http://localhost:8080/oauth2_users/{userId}/orders
 * Input: 無
 * Ouput: 建立好的商品資料
 ![getorder](https://github.com/user-attachments/assets/3acf81c1-b266-4179-8761-41e421a4fb7b)
-## 使用技術介紹_java-secuity
-### 使用者註冊和登入
-#### 1. 使用者註冊和登入_oAuth2
-* 功能介紹: 讓使用者可以透過google帳號註冊
-* 執行步驟:
-a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c) <br/>
-b. 選擇使用帳號 ![oauth2-login-1](https://github.com/user-attachments/assets/8b8a10a2-2e40-4043-9a8e-017c6803e01d)
-c. 登入成功畫面 ![oauth2-login-2](https://github.com/user-attachments/assets/fb99f99a-11e6-47ad-a43e-86ea73479a89)
-
-#### 2. 使用者註冊_普通使用者
-* POST: http://localhost:8080/users/register
-* 功能介紹: 讓使用者可以註冊帳號
-* Input: 帳號資料
-* Ouput: 註冊成功畫面
-![register](https://github.com/user-attachments/assets/ec87fb1c-9c6e-4cd7-baff-ca42bc321d9b)
-
-#### 3. 使用者登入_普通使用者
-* POST: http://localhost:8080/userLogin
-* 功能介紹: 讓使用者可以登入帳號
-* Input: 帳號資料
-* Ouput: 登入成功畫面和獲得的權限
-![login](https://github.com/user-attachments/assets/acc031a9-b3df-4017-890f-d0c03c369f07)
 
 
 

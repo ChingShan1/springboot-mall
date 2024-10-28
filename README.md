@@ -18,7 +18,8 @@
 * 執行步驟:
 a. 點選Goole登入按鈕 ![oauth2-login](https://github.com/user-attachments/assets/12b3ebbd-f6e4-4aa8-b2c0-8b3b750cbc5c) <br/>
 b. 選擇使用帳號 ![oauth2-login-1](https://github.com/user-attachments/assets/8b8a10a2-2e40-4043-9a8e-017c6803e01d)
-c. 登入成功畫面 ![oauth2-login-2](https://github.com/user-attachments/assets/fb99f99a-11e6-47ad-a43e-86ea73479a89)
+c. 登入成功畫面 ![oauth2-login-role](https://github.com/user-attachments/assets/facb7bda-6222-4573-9faa-3bc766f79a08)
+
 
 #### 2. 使用者註冊_普通使用者
 * POST: http://localhost:8080/users/register

@@ -5,9 +5,9 @@
 3. 訂單功能, ex:建立選擇購買商品的定單...等。
 4. 管理使用者的權限。
 ## 專案技術
-1. 使用java-springBoot的架構來時做後端WEB應用程式
-2. 使用java-security的架構來做認證和授權，來作資訊安全的保護
-3. 使用Oauth2的技術，讓第三方應用程式使用者登入, ex: 使用Google帳號登入
+1. 使用java-springBoot的架構來時做後端WEB應用程式。
+2. 使用java-security的架構來做認證和授權，認證是否有帳號密碼可以來做登入和授權哪些使用者可以存取資料的權限來作為資訊安全的保護。
+3. 使用Oauth2的技術，讓第三方應用程式使用者登入, ex: 使用Google帳號登入。
 ## 基本架構圖
 ![基本架構圖](https://github.com/user-attachments/assets/7d26d65e-b3bd-4df0-903c-b86de9d61f20)
 

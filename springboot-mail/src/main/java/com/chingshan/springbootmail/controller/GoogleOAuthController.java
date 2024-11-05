@@ -40,11 +40,11 @@ public class GoogleOAuthController {
                 .queryParam("response_type", "code")
                 .queryParam("client_id", GOOGLE_CLIENT_ID)
                 .queryParam("scope", "profile+email+openid")
-                .queryParam("redirect_uri", "http://localhost:8080/login/oauth2/code/google")
+                .queryParam("redirect_uri", "http://localhost:3000/oauth2-google-demo.html")
                 .queryParam("state", generateRandomState())
                 .queryParam("access_type", "offline");
 
-        return uriBuilder.toUriString();
+        return "tesddsdsdst";
     }
 
     // 步驟 5. 傳遞 code、client_id、client_secret 的值給 Google 認證中心，換取 access_token 的值

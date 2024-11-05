@@ -22,6 +22,8 @@ import java.util.List;
 @EnableMethodSecurity
 @Validated
 @RestController
+@CrossOrigin
+//@CrossOrigin
 public class ProductController {
 
     @Autowired

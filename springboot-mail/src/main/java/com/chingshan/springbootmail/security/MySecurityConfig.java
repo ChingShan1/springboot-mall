@@ -49,10 +49,10 @@ public class MySecurityConfig {
                 // 設定 CSRF 保護
                 .csrf(csrf -> csrf.disable())
 
-                // 設定 CORS 跨域
-                .cors(cors -> cors
-                        .configurationSource(createCorsConfig())
-                )
+//                // 設定 CORS 跨域
+//                .cors(cors -> cors
+//                        .configurationSource(createCorsConfig())
+//                )
 
                 // 設定 Http Basic 認證和表單認證
                 .httpBasic(Customizer.withDefaults())
@@ -71,26 +71,26 @@ public class MySecurityConfig {
 
                 // 設定 api 的權限控制
                 .authorizeHttpRequests(request -> request
-                        // 註冊帳號功能
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/google/**").permitAll()
+//                        // 註冊帳號功能
+//                        .requestMatchers("/register").permitAll()
+//                        .requestMatchers("/google/**").permitAll()
+//
+//
+//                        // 登入功能
+////                        .requestMatchers("/register").authenticated()
+//                        .requestMatchers("/userLogin").authenticated()
+//                        .requestMatchers("/").authenticated()
+//                        .requestMatchers("/oauth2_users/**").authenticated()
+//                        .requestMatchers("/users/**").authenticated()
+//                        .requestMatchers("/products/**").authenticated()
+//
+//
+//
+//                        // 權限設定
+////                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
+//
 
-
-                        // 登入功能
-//                        .requestMatchers("/register").authenticated()
-                        .requestMatchers("/userLogin").authenticated()
-                        .requestMatchers("/").authenticated()
-                        .requestMatchers("/oauth2_users/**").authenticated()
-                        .requestMatchers("/users/**").authenticated()
-                        .requestMatchers("/products/**").authenticated()
-
-
-
-                        // 權限設定
-//                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
-
-
-                        .anyRequest().denyAll()
+                        .anyRequest().permitAll()
                 )
 
                 .build();

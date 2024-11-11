@@ -49,11 +49,16 @@ public class MySecurityConfig {
                 // 設定 CSRF 保護
                 .csrf(csrf -> csrf.disable())
 
-//                // 設定 CORS 跨域
-//                .cors(cors -> cors
-//                        .configurationSource(createCorsConfig())
-//                )
-
+                // 設定 CORS 跨域
+                .cors(cors -> cors
+                        .configurationSource(createCorsConfig())
+                )
+                // Resource Server 的 JWT 驗證
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwkSetUri("http://localhost:5500/realms/master/protocol/openid-connect/certs")  // 设置 JWKS URI
+                        )
+                )
                 // 設定 Http Basic 認證和表單認證
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
@@ -61,43 +66,30 @@ public class MySecurityConfig {
                 // oauth社交登入
                 // OAuth 2.0 社交登入
 
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(infoEndpoint -> infoEndpoint
-                                .userService(myOAuth2UserService)
-                                .oidcUserService(myOidcUserService)
-                        )
-                )
-//                .oauth2Login(Customizer.withDefaults())
+//                .oauth2Login(oauth2 -> oauth2
+//                        .userInfoEndpoint(infoEndpoint -> infoEndpoint
+//                                .userService(myOAuth2UserService)
+//                                .oidcUserService(myOidcUserService)
+//                        )
+//                )
+                .oauth2Login(oauth2Login ->
+                        oauth2Login.defaultSuccessUrl("/hello", true))
 
                 // 設定 api 的權限控制
                 .authorizeHttpRequests(request -> request
 //                        // 註冊帳號功能
-//                        .requestMatchers("/register").permitAll()
-//                        .requestMatchers("/google/**").permitAll()
-//
-//
+                        .requestMatchers("/register").permitAll()
 //                        // 登入功能
 ////                        .requestMatchers("/register").authenticated()
-//                        .requestMatchers("/userLogin").authenticated()
-//                        .requestMatchers("/").authenticated()
-//                        .requestMatchers("/oauth2_users/**").authenticated()
-//                        .requestMatchers("/users/**").authenticated()
-//                        .requestMatchers("/products/**").authenticated()
-//
-//
-//
-//                        // 權限設定
-////                        .requestMatchers("/products/**").hasAnyRole("NORMAL_MEMBER", "MOVIE_MANAGER", "ADMIN")
-//
-
-                        .anyRequest().permitAll()
+                         .anyRequest().authenticated()
+//                        .anyRequest().permitAll()
                 )
 
                 .build();
     }
     private CorsConfigurationSource createCorsConfig() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://example.com"));
+        config.setAllowedOrigins(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("*"));
         config.setAllowCredentials(true);

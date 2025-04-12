@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello!";
+        return "Hello!123";
     }
 //    @PostMapping("/register")
 //    public String register(@RequestBody Member member) {
